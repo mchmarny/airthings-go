@@ -1,2 +1,5 @@
 # airthings-go
-airthings go client
+
+WIP: airthings go client
+
+https://consumer-api-doc.airthings.com/api-docs
