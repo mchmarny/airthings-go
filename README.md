@@ -2,4 +2,5 @@
 
 WIP: airthings go client
 
-https://consumer-api-doc.airthings.com/api-docs
+API: https://consumer-api-doc.airthings.com/api-docs
+APP: https://consumer-api-doc.airthings.com/dashboard
