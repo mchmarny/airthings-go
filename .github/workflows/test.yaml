@@ -34,7 +34,7 @@ jobs:
         go-version: '${{ inputs.go_version }}'
     - run: go version
     - name: Cache Go Modules
-      uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2  # v4.0.0
+      uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a  # v4.1.2
       with:
         path: |
           ~/go/pkg/mod
@@ -51,7 +51,7 @@ jobs:
       run: |
         make test
     - name: Parse Coverage
-      uses: codecov/codecov-action@4fe8c5f003fae66aa5ebb77cfd3e7bfbbda0b6b0  # v3.1.5
+      uses: codecov/codecov-action@015f24e6818733317a2da2edd6290ab26238649a  # v5.0.7
       with:
         flags: unittests  # optional
 
@@ -66,7 +66,7 @@ jobs:
         go-version: '${{ inputs.go_version }}'
     - run: go version
     - name: Cache Go Modules
-      uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2  # v4.0.0
+      uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a  # v4.1.2
       with:
         path: |
           ~/go/pkg/mod
