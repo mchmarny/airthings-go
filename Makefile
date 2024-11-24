@@ -1,5 +1,5 @@
 COMMIT     :=$(shell git rev-parse HEAD)
-YAML_FILES :=$(shell find . ! -path "./vendor/*" -type f -regex ".*y*ml" -print)
+YAML_FILES :=$(shell find . ! -path "./vendor/*" ! -path "./api/*" -type f -regex ".*y*ml" -print)
 
 all: help
 
@@ -13,8 +13,8 @@ tidy: ## Updates the go modules and vendors all dependencies
 	go mod vendor
 
 .PHONY: upgrade
-upgrade: ## Upgrades all dependencies 
-	go get -d -u ./...
+upgrade: clean ## Upgrades all dependencies 
+	go get -u ./...
 	go mod tidy
 	go mod vendor
 
@@ -56,11 +56,7 @@ clean: ## Cleans bin and temp directories
 
 .PHONY: api
 api: ## Generates the API documentation
-	oapi-codegen \
-		-config api/airthings/config.yaml \
-		-package api \
-		-o pkg/api/api.go \
-		api/airthings/openapi.yaml
+	oapi-codegen -config api/airthings/config.yaml api/airthings/openapi.yaml
 
 .PHONY: help
 help: ## Display available commands

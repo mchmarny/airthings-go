@@ -1,7 +1,8 @@
+# https://github.com/oapi-codegen/oapi-codegen/blob/main/configuration-schema.json
 package: airthings
 generate:
   echo-server: true
   client: true
   models: true
   embedded-spec: true
-output: pkg/api/api.go
+output: pkg/airthings/api.go
