@@ -36,7 +36,7 @@ func TestTokenFetcher_GetToken(t *testing.T) {
 
 	// Simulate a successful token response
 	mockClient.DoFunc = func(req *http.Request) (*http.Response, error) {
-		if req.Method != http.MethodGet {
+		if req.Method != http.MethodPost {
 			t.Errorf("expected POST method, got %s", req.Method)
 		}
 		if req.URL.String() != "https://accounts-api.airthings.com/v1/token" {
@@ -62,7 +62,6 @@ func TestTokenFetcher_GetToken(t *testing.T) {
 
 	f := &Fetcher{
 		Client: mockClient,
-		URL:    "https://accounts-api.airthings.com/v1/token",
 	}
 
 	token, err := f.GetToken(r)
@@ -94,7 +93,6 @@ func TestTokenFetcher_GetToken_ErrorCases(t *testing.T) {
 
 	f := &Fetcher{
 		Client: mockClient,
-		URL:    "https://accounts-api.airthings.com/v1/token",
 	}
 
 	_, err := f.GetToken(&Request{})

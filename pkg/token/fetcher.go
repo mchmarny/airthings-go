@@ -6,35 +6,34 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
+)
+
+const (
+	ClientIDEnvVar     = "AIRTHINGS_CLIENT_ID"
+	ClientSecretEnvVar = "AIRTHINGS_CLIENT_SECRET"
+
+	apiURL         = "https://accounts-api.airthings.com/v1/token"
+	tokenGrantType = "client_credentials"
+
+	clientTimeoutDefault = 60
 )
 
 type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
-// Request is the data structure used to request a token from the Airthings API.
-type Request struct {
-	GrantType    string   `json:"grant_type"`
-	ClientID     string   `json:"client_id"`
-	ClientSecret string   `json:"client_secret"`
-	Scope        []string `json:"scope"`
-}
-
-// IsValid checks if the request is valid.
-func (r *Request) IsValid() bool {
-	return r.GrantType != "" && r.ClientID != "" && r.ClientSecret != "" && len(r.Scope) > 0
-}
-
-// Token is the data structure used to represent a token from the Airthings API.
-type Token struct {
-	AccessToken string `json:"access_token"`
-	ExpiresIn   int    `json:"expires_in"`
-	TokenType   string `json:"token_type"`
+// NewFetcher creates a new Fetcher with a default HTTP client and API URL.
+func NewFetcher() *Fetcher {
+	return &Fetcher{
+		Client: &http.Client{
+			Timeout: clientTimeoutDefault * time.Second,
+		},
+	}
 }
 
 type Fetcher struct {
 	Client HTTPClient
-	URL    string
 }
 
 func (f *Fetcher) GetToken(req *Request) (*Token, error) {
@@ -47,7 +46,7 @@ func (f *Fetcher) GetToken(req *Request) (*Token, error) {
 		return nil, fmt.Errorf("error marshalling request JSON: %w", err)
 	}
 
-	r, err := http.NewRequest(http.MethodGet, f.URL, bytes.NewBuffer(jsonData))
+	r, err := http.NewRequest(http.MethodPost, apiURL, bytes.NewBuffer(jsonData))
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
