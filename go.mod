@@ -4,7 +4,7 @@ go 1.23.3
 
 require (
 	github.com/getkin/kin-openapi v0.128.0
-	github.com/labstack/echo/v4 v4.12.0
+	github.com/labstack/echo/v4 v4.13.0
 	github.com/oapi-codegen/runtime v1.1.1
 )
 
