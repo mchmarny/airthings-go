@@ -86,7 +86,7 @@ jobs:
         files: .golangci.yaml
     - name: Lint Go
       if: steps.golangci_config.outputs.files_exists == 'true'
-      uses: golangci/golangci-lint-action@3a919529898de77ec3da873e3063ca4b10e7f5cc  # v3.7.0
+      uses: golangci/golangci-lint-action@0adbc47a5910e47adb692df88187ec8c73c76778  # v6.4.0
       with:
         version: ${{ inputs.golangci_version }}
     - name: Config YAML Lint
